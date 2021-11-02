@@ -36,12 +36,17 @@ propagating incorrect information to peers.
 
 ### Add or remove validators
 
-QBFT provides two methods to add or remove validators:
+QBFT provides two methods (modes) to add or remove validators:
 
-* Voting-based - Existing validators propose and vote to [add or remove validators](Add-Validators.md#qbft)
+* Block header validator selection - Existing validators propose and vote to [add or remove validators](Add-Validators.md#qbft)
     using the JSON RPC calls. Adding or removing a validator requires a majority vote (greater than 50%) of validators.
-* Smart contract-based - Use a smart contract to specify the validators used to propose and
+* Contract validator selection - Use a smart contract to specify the validators used to propose and
     validate blocks.
+
+!!! important
+
+    You cannot use the JSON RPC calls to add or remove validators when using a smart contract to manage nodes.
+    You must interact with the contract functions using transactions.
 
 You can deploy the validator smart contract in an existing QBFT network, or to a new network by specifying the
 contract details in the [genesis file](#genesis-file).
