@@ -34,25 +34,26 @@ QBFT requires four validators to be Byzantine fault tolerant. Byzantine fault to
 ability for a blockchain network to function correctly and reach consensus despite nodes failing or
 propagating incorrect information to peers.
 
-### Add or remove validators
+### Validator management
 
-QBFT provides two methods (modes) to add or remove validators:
+QBFT provides two methods (modes) to manage validators:
 
 * Block header validator selection - Existing validators propose and vote to [add or remove validators](Add-Validators.md#qbft)
-    using the JSON RPC calls. Adding or removing a validator requires a majority vote (greater than 50%) of validators.
+    using the JSON-RPC calls. Adding or removing a validator requires a majority vote (greater than 50%) of validators.
 * Contract validator selection - Use a smart contract to specify the validators used to propose and
     validate blocks.
 
 !!! important
 
-    You cannot use the JSON RPC calls to add or remove validators when using a smart contract to manage nodes.
+    You cannot use the JSON-RPC calls to add or remove validators when using a smart contract to manage nodes.
     You must interact with the contract functions using transactions.
 
-You can deploy the validator smart contract in an existing QBFT network, or to a new network by specifying the
-contract details in the [genesis file](#genesis-file).
+You can deploy the validator smart contract in a new QBFT network by specifying the
+contract details in the [genesis file](#genesis-file). Use transitions if you want to swap between
+block header validator selection and contract validator selection in an existing network.
 
-For the voting-based method, initial validators are configured in the genesis file's
-[`extraData`](#extra-data) property, whereas the initial validators when using the smart contract-based
+For block header validator selection, initial validators are configured in the genesis file's
+[`extraData`](#extra-data) property, whereas the initial validators when using the contract validator selection
 method are configured in the genesis file's `storage` section.
 
 !!! important
@@ -65,11 +66,11 @@ method are configured in the genesis file's `storage` section.
 To use QBFT, define a [genesis file](../Genesis-File.md) that contains the QBFT properties.
 
 The genesis file differs depending on the method you intend to use to
-[add or remove validators](#add-or-remove-validators).
+[add or remove validators](#validator-management).
 
 !!! example "Example QBFT genesis files"
 
-    === "Voting-based validator selection"
+    === "Block header validator selection"
 
         ```json
         {
@@ -113,7 +114,7 @@ The genesis file differs depending on the method you intend to use to
         }
         ```
 
-    === "Smart contract-based validator selection "
+    === "Contract validator selection"
 
         ```json
         {
@@ -182,13 +183,15 @@ The QBFT properties are:
 * `blockreward` - Optional reward amount in Wei to reward the beneficiary. Defaults to zero (0).
     Can be specified as a hexadecimal (with 0x prefix) or decimal string value. If set, then all
     nodes on the network must use the identical value.
-* `validatorcontractaddress` - Address of the validator smart contract. Required only if using a validator
-   smart contract. The address must be identical to the address in the `alloc` section.
+* `validatorcontractaddress` - Address of the validator smart contract. Required only if using a contract validator
+   selection. The address must be identical to the address in the `alloc` section.
+* `validatorselectionmode` - "contract",
 * `miningbeneficiary` - Optional beneficiary of the `blockreward`. Defaults to the validator
     that proposes the block. If set, then all nodes on the network must use the same beneficiary.
 * [`extraData`](#extra-data) - Differs depending on the [method used to add or remove validators](#add-or-remove-validators):
-    ** Voting-based uses: `RLP([32 bytes Vanity, List<Validators>, No Vote, Round=Int(0), 0 Seals])`
-    ** Smart contract-based uses `RLP([32 bytes Vanity, 0 validators, No Vote, Round=Int(0), 0 Seals])`
+
+    * Block header validator selection uses: `RLP([32 bytes Vanity, List<Validators>, No Vote, Round=Int(0), 0 Seals])`
+    * Contract validator selection uses `RLP([32 bytes Vanity, 0 validators, No Vote, Round=Int(0), 0 Seals])`
 
 !!! caution
 
