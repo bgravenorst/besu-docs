@@ -364,7 +364,8 @@ to MetaMask and send transactions as described in the [private network example t
     Besu does not support
     [private key management](../../HowTo/Send-Transactions/Account-Management.md).
 
-You can configure a transition to switch the
+You can switch from the [block header validator selection method] configured here, to the [contract validator selection method]
+by updating the genesis file and [configuring a transition].
 
 ## Stop the nodes
 
@@ -377,9 +378,9 @@ When finished using the private network, stop all nodes using ++ctrl+c++ in each
 
 <!-- Links -->
 [private network example tutorial]: ../Examples/Private-Network-Example.md#creating-a-transaction-using-metamask
-[block header validator selection method]]: ../../HowTo/Configure/Consensus-Protocols/Add-Validators.md#adding-and-removing-validators-by-voting
+[block header validator selection method]: ../../HowTo/Configure/Consensus-Protocols/Add-Validators.md#adding-and-removing-validators-by-voting
 [contract validator selection method]: ../../HowTo/Configure/Consensus-Protocols/Add-Validators.md#adding-and-removing-validators-using-a-smart-contract
 [example smart contract repository]: https://github.com/ConsenSys/validator-smart-contracts
-
+[configuring a transition]: ../../HowTo/Configure/Consensus-Protocols/QBFT.md#transitions
 <!-- Acronyms and Definitions -->
 *[Byzantine fault tolerant]: Ability to function correctly and reach consensus despite nodes failing or propagating incorrect information to peers.

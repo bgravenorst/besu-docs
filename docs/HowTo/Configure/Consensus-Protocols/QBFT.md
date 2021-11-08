@@ -227,7 +227,7 @@ the `extraData` property contains a list of validators for the network.
 
 !!! important
 
-     When using the smart contract-based method to add and remove validators, the list of validators
+     When using the contract validator selection method to manage validators, the list of validators
      are configured in the `alloc` property's `storage` section.
 
      [View the example smart contract] for more information on how to generate the `storage` section.
