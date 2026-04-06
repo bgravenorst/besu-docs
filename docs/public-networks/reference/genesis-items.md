@@ -130,7 +130,14 @@ Using `fixeddifficulty` is not recommended for use with Ethash outside of test e
 
 ## Discovery configuration items
 
-Use the `discovery` configuration items to specify the [`bootnodes`](cli/options.md#bootnodes) and [`discovery-dns-url`](cli/options.md#discovery-dns-url) in the genesis file, in place of using CLI options or listing them in the configuration file. If either CLI option is used, it takes precedence over the genesis file. Anything listed in the configuration file also takes precedence.
+Use the `discovery` configuration items to specify the [`bootnodes`](cli/options.md#bootnodes) and [`discovery-dns-url`](cli/options.md#discovery-dns-url) in the genesis file, in place of using CLI options or listing them in the configuration file.
+The genesis file can take discovery v4 bootnodes (specified as [enode URLs](../concepts/node-keys.md#enode-url) using the `bootnodes` option) and discovery v5 bootnodes (specified as [ENR URLs](../concepts/node-keys.md#enr-url) using the `v5Bootnodes` option).
+
+:::tip Early access feature
+To use discovery v5 bootnodes, set the early access option `--Xv5-discovery-enabled` to `true`.
+:::
+
+If any option is specified using the command line or [configuration file](../how-to/configure-besu/index.md), it takes precedence over the genesis file.
 
 ```json
 {
@@ -139,6 +146,10 @@ Use the `discovery` configuration items to specify the [`bootnodes`](cli/options
       "bootnodes": [
         "enode://c35c3...d615f@1.2.3.4:30303",
         "enode://f42c13...fc456@1.2.3.5:30303"
+      ],
+      "v5Bootnodes": [
+        "enr:-Mq4QL...DdWRwgiMo",
+        "enr:-Ku4QLV...IN1ZHCCIyk"
       ],
       "dns": "enrtree://AM5FCQLWIZX2QFPNJAP7VUERCCRNGRHWZG3YYHIUV7BVDQ5FDPRT2@nodes.example.org"
     }
