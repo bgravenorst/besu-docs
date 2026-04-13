@@ -36,7 +36,7 @@ The folder a file lives in determines the content type and structure expectation
 ### `get-started/` - Onboarding
 
 `get-started/` pages are onboarding essentials: installation, system requirements, connecting
-to networks, and initial configuration. They are not necessarily quickstarts.
+to networks, and initial configuration.
 
 Choose structure based on the topic (how-to steps, short explanation, or reference-style facts)
 and match conventions of neighboring pages in the same `get-started/` section.

@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Terminology
 
-Use the terms below consistently. The left column is the required form. Do not use the variants
+Use the following terms consistently. The left column is the required form. Do not use the variants
 listed on the right unless they appear in code, URLs, or direct quotations from a specification.
 
 | Required term                          | Do not use                                              |
@@ -33,7 +33,6 @@ listed on the right unless they appear in code, URLs, or direct quotations from 
 |---------------|--------------------------------|
 | IBFT 2.0      | IBFT2, ibft2, iBFT             |
 | QBFT          | qbft, Qbft                     |
-| Clique        | clique, CLIQUE                  |
 
 ## Standards and specifications
 

@@ -13,17 +13,15 @@ alwaysApply: false
 ## Scope
 
 Private networks documentation covers running Besu in permissioned, consortium, or enterprise
-environments. This includes private consensus protocols, permissioning, privacy features, and
+environments. This includes proof-of-authority consensus protocols, permissioning, and
 multi-node deployments.
 
 ## Key concepts
 
-- **Consensus protocols**: IBFT 2.0, QBFT, and Clique are the supported private network consensus
+- **Consensus protocols**: IBFT 2.0 and QBFT are the supported private network consensus
   protocols. Use the required casing from `terminology.mdc`.
 - **Permissioning**: Besu supports node-level and account-level permissioning, both onchain and
   via local configuration files. Use "permissioning" (not "access control" or "whitelisting").
-- **Privacy**: Besu supports private transactions using Tessera. Distinguish between "privacy
-  groups" and "flexible privacy groups."
 - **Genesis file**: private network configuration starts with a genesis file. Reference pages
   and examples should clarify which consensus mechanism the genesis file targets.
 
@@ -31,9 +29,9 @@ multi-node deployments.
 
 | Folder          | Content type                                                |
 |-----------------|-------------------------------------------------------------|
-| `concepts/`     | Explanation (permissioning, privacy, consensus)             |
+| `concepts/`     | Explanation (permissioning, consensus)             |
 | `get-started/`  | Onboarding (system requirements, installation)              |
-| `how-to/`       | How-to (configure consensus, deploy, monitor, send private transactions) |
+| `how-to/`       | How-to (configure consensus, deploy, monitor) |
 | `reference/`    | CLI reference, private API methods, genesis file options    |
 | `tutorials/`    | End-to-end walkthroughs (create IBFT/QBFT networks, Kubernetes deployments, permissioning) |
 
