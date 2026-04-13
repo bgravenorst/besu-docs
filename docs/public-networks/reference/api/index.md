@@ -8204,6 +8204,70 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"txpool_contentFrom","params":["0
 </TabItem>
 </Tabs>
 
+### `txpool_inspect`
+
+Returns a textual summary of all pending and queued transactions in the pool, grouped by sender
+address and sorted by nonce.
+
+The summary is free form, implementation-dependent, and meant to be consumed by humans.
+For programmatic access to the transaction pool, use [`txpool_content`](#txpool_content).
+
+#### Parameters
+
+None
+
+#### Returns
+
+`result`: _object_ - transaction pool inspect object with the following fields:
+
+- `pending`: _object_ - map of sender addresses to maps of nonces to human-readable transaction
+  summary strings, for transactions pending inclusion in the next block
+
+- `queued`: _object_ - map of sender addresses to maps of nonces to human-readable transaction
+  summary strings, for transactions scheduled for future execution
+
+<Tabs>
+
+<TabItem value="curl HTTP request" label="curl HTTP request" default>
+
+```bash
+curl -X POST --data '{"jsonrpc":"2.0","method":"txpool_inspect","params":[],"id":1}' http://127.0.0.1:8545/ -H "Content-Type: application/json"
+```
+
+</TabItem>
+<TabItem value="wscat WS request" label="wscat WS request">
+
+```json
+{ "jsonrpc": "2.0", "method": "txpool_inspect", "params": [], "id": 1 }
+```
+
+</TabItem>
+<TabItem value="JSON result" label="JSON result">
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "pending": {
+      "0x67ee9a8c19f7873125a875f61add461b4a505d8c": {
+        "5": "{sequence: 68178, addedAt: 1775837774160, isLocal=false, hasPriority=false, score=127, 0xfbee0231c6140f9db3bbcef774b3626556f6f5528a6a49dcd38e1f7f86c79368={MessageCall, 5, 0x67ee9a8c19f7873125a875f61add461b4a505d8c, EIP1559, mf: 300.00 kwei, pf: 300.00 kwei, gl: 70926, v: 0 wei, to: 0xe9f8133e47d42bc9962e469721faaf75e385af31}}",
+        "6": "{sequence: 68179, addedAt: 1775837774160, isLocal=false, hasPriority=false, score=127, 0x3474c0582722ed751dba809363f58c8d1acea415831b81bc0b0b9f29afb19c19={MessageCall, 6, 0x67ee9a8c19f7873125a875f61add461b4a505d8c, EIP1559, mf: 2.00 mwei, pf: 2.00 mwei, gl: 90617, v: 0 wei, to: 0x1eb4a2620b909a8838e0e24a8e912bd32f4a47a3}}"
+      }
+    },
+    "queued": {
+      "0x5fa84846743cc07ab16106ceabad8e4e0ec1c1b6": {
+        "29": "{sequence: 2208499, addedAt: 1775952461706, isLocal=false, hasPriority=false, score=127, 0x2bb5f69f2b9737a99a3674018cd2aac5035b907a753a0c797051bc9df0b2a152={MessageCall, 29, 0x5fa84846743cc07ab16106ceabad8e4e0ec1c1b6, EIP1559, mf: 1.40 gwei, pf: 417.90 mwei, gl: 63209, v: 0 wei, to: 0xdac17f958d2ee523a2206206994597c13d831ec7}}",
+        "31": "{sequence: 1766002, addedAt: 1775931135467, isLocal=false, hasPriority=false, score=127, 0xdd250f166c086412fae187ef52dfbe1c4ff9405818781ac50f89d67a77a2d432={MessageCall, 31, 0x5fa84846743cc07ab16106ceabad8e4e0ec1c1b6, EIP1559, mf: 47.74 gwei, pf: 9.28 gwei, gl: 21000, v: 0 wei, to: 0x5fa84846743cc07ab16106ceabad8e4e0ec1c1b6}}"
+      }
+    }
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
 ### `txpool_status`
 
 Returns the number of pending and queued transactions in the pool.
