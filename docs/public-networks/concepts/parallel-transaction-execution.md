@@ -163,9 +163,12 @@ GiB memory), with Teku and Nimbus as consensus layer (CL) clients:
 - **Execution throughput** - Benchmarking against mainnet big blocks shows a significant increase in
   execution throughput (measured in megagas per second, Mgas/s) compared to sequential processing.
   These results were collected on the following hardware:
+
   - CPU: AMD EPYC 4344P, 8 cores/16 threads, 3.8 GHz base / 5.3 GHz boost
   - RAM: 64 GB DDR5 5200 MHz
   - Storage: 2x 960 GB NVMe SSD
+
+  The following table shows the throughput results:
 
   | Metric | Throughput |
   |--------|-----------|
