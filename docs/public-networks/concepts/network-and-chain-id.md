@@ -2,9 +2,6 @@
 title: Network ID and chain ID
 sidebar_position: 7
 description: Learn about network ID and chain ID in Besu.
-tags:
-  - public networks
-  - private networks
 ---
 
 # Network ID and chain ID
@@ -48,7 +45,7 @@ Besu sets the chain ID (and by default the network ID) automatically, using eith
 
 :::info
 
-The following networks and testnets are deprecated: ETC Classic, Holesky, and Mordor.
+The following networks and testnets are deprecated: ETC (Ethereum Classic), Holesky, and Mordor.
 
 :::
 

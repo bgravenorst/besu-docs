@@ -2,9 +2,6 @@
 title: Options
 description: Besu command line interface reference
 sidebar_position: 1
-tags:
-  - public networks
-  - private networks
 ---
 
 import Tabs from '@theme/Tabs';
@@ -3186,7 +3183,7 @@ Values are case-insensitive, so either `mainnet` or `MAINNET` works.
 
 - You can't use the `--network` and [`--genesis-file`](#genesis-file) options at the same time.
 
-- The following networks and testnets are deprecated: ETC Classic, Holesky, and Mordor.
+- The following networks and testnets are deprecated: ETC (Ethereum Classic), Holesky, and Mordor.
 
 :::
 

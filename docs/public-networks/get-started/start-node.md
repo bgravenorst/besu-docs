@@ -2,8 +2,6 @@
 title: Start Besu
 sidebar_position: 3
 description: Start Besu on a public Ethereum network.
-tags:
-  - public networks
 ---
 
 import Tabs from '@theme/Tabs';
@@ -31,7 +29,7 @@ Besu specifies the genesis configuration, and sets the network ID and bootnodes 
 
 :::info
 
-The following networks and testnets are deprecated: ETC Classic, Holesky, and Mordor.
+The following networks and testnets are deprecated: ETC (Ethereum Classic), Holesky, and Mordor.
 
 :::
 

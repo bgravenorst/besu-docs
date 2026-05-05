@@ -378,9 +378,25 @@ img {
   padding: 0;
 }
 
+.menu__caret {
+  padding: var(--ifm-menu-link-padding-vertical) var(--ifm-menu-link-padding-horizontal);
+}
+
 .navbar__link {
   color: var(--ifm-navbar-link-color);
   font-weight: var(--ifm-font-weight-semibold);
+}
+
+/* Match light mode navbar hover color to dark mode */
+html[data-theme="light"] .navbar__link:hover {
+  color: #8BB8FF;
+}
+
+/* Active top nav section highlighting */
+.navbar__link--active {
+  color: #fff !important;
+  border-bottom: 3px solid rgb(255 255 255 / 90%);
+  padding-bottom: calc(var(--ifm-navbar-padding-vertical) - 3px);
 }
 
 /* Search bar customization */
