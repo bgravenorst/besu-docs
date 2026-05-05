@@ -335,7 +335,7 @@ const config = {
         docsDir: "docs",
         generateLLMsTxt: true,
         generateLLMsFullTxt: true,
-        title: "Hyperledger Besu documentation",
+        title: "Besu documentation",
         description:
           "Official Besu documentation: public Ethereum networks, permissioned / private networks, APIs, configuration, and operations.",
         excludeImports: true,
