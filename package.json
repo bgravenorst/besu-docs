@@ -38,10 +38,10 @@
     "@easyops-cn/docusaurus-search-local": "^0.55.0",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.1.1",
+    "open-ask-ai": "^0.7.3",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "open-ask-ai": "^0.7.3"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
@@ -60,6 +60,7 @@
     "@typescript-eslint/parser": "^6.13.1",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
+    "docusaurus-plugin-llms": "^0.4.0",
     "semantic-release": "^24.1.2",
     "stylelint": "^15.0.0 ",
     "stylelint-config-standard": "^34.0.0",
