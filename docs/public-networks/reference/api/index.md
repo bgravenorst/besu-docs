@@ -2602,6 +2602,102 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":51
 
 </Tabs>
 
+### `eth_capabilities`
+
+Returns the node's data-serving capabilities.
+
+#### Parameters
+
+None
+
+#### Returns
+
+`result`: _object_ - capabilities information containing:
+
+- `head`: _object_ - current chain head information:
+  - `number`: _string_ - current chain head block number
+  - `hash`: _string_ - current chain head block hash
+- `state`: _object_ - state capability information
+  - `disabled`: _boolean_ - indicates whether the `state` resource is disabled
+  - `oldestBlock`: _string_ - (optional) oldest available block
+- `tx`: _object_ - transaction capability information
+  - `disabled`: _boolean_ - indicates whether the `tx` resource is disabled
+  - `oldestBlock`: _string_ - (optional) oldest available block
+- `logs`: _object_ - logs capability information
+  - `disabled`: _boolean_ - indicates whether the `logs` resource is disabled
+  - `oldestBlock`: _string_ - (optional) oldest available block
+- `receipts`: _object_ - receipts capability information
+  - `disabled`: _boolean_ - indicates whether the `receipts` resource is disabled
+  - `oldestBlock`: _string_ - (optional) oldest available block
+- `blocks`: _object_ - blocks capability information
+  - `disabled`: _boolean_ - indicates whether the `blocks` resource is disabled
+  - `oldestBlock`: _string_ - (optional) oldest available block
+- `stateproofs`: _object_ - state proofs capability information
+  - `disabled`: _boolean_ - indicates whether the `stateproofs` resource is disabled
+  - `oldestBlock`: _string_ - (optional) oldest available block
+
+The `oldestBlock` field is included for block-backed resources when pruning has occurred.
+If the full chain is available, this can be `0x0`.
+
+<Tabs>
+
+<TabItem value="curl HTTP request" label="curl HTTP request" default>
+
+```bash
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_capabilities","params":[],"id":1}' http://127.0.0.1:8545/
+```
+
+</TabItem>
+
+<TabItem value="wscat WS request" label="wscat WS request">
+
+```json
+{ "jsonrpc":"2.0", "method":"eth_capabilities", "params":[], "id":1 }
+```
+
+</TabItem>
+
+<TabItem value="JSON result" label="JSON result">
+
+```json
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":{
+    "head":{
+      "number":"0x13f8e3a",
+      "hash":"0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3"
+    },
+    "state":{
+      "disabled":false
+    },
+    "tx":{
+      "disabled":false,
+      "oldestBlock":"0x11b340a"
+    },
+    "logs":{
+      "disabled":false,
+      "oldestBlock":"0x11b340a"
+    },
+    "receipts":{
+      "disabled":false,
+      "oldestBlock":"0x11b340a"
+    },
+    "blocks":{
+      "disabled":false,
+      "oldestBlock":"0x0"
+    },
+    "stateproofs":{
+      "disabled":false
+    }
+  }
+}
+```
+
+</TabItem>
+
+</Tabs>
+
 ### `eth_config`
 
 Returns the client's fork information for the current, next, and last known forks.
