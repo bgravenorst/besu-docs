@@ -22,4 +22,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://besu.hyperledger.org/sitemap.xml
+Sitemap: https://docs.besu-eth.org/sitemap.xml
