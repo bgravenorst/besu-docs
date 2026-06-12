@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
+    "prestart": "node scripts/fetch-plugin-api-docs.mjs",
     "start": "docusaurus start",
+    "prebuild": "node scripts/fetch-plugin-api-docs.mjs",
     "build": "docusaurus build && node scripts/copy-md-to-build.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -44,7 +46,8 @@
     "open-ask-ai": "^0.7.3",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "unzipper": "^0.12.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",

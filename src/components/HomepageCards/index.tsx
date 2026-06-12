@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import Heading from '@theme/Heading'
-// import styles from "./styles.module.css";
+import styles from "./styles.module.css";
 
 type CardItem = {
   title: string;
@@ -44,17 +44,29 @@ const CardList: CardItem[] = [
     buttonName: "Get started",
     buttonType: "secondary",
   },
+  {
+    title: "🔌 Plugins",
+    link: "/plugins",
+    // prettier-ignore
+    description: (
+      <>
+        Extend Besu&apos;s functionality on both public and private networks using the Plugin API.
+      </>
+    ),
+    buttonName: "Get started",
+    buttonType: "secondary",
+  },
 ];
 
 function Card({ title, link, description, buttonName, buttonType }: CardItem) {
   return (
     <div className={clsx("col", "margin-top--md")}>
-      <div className="card-demo">
-        <div className="card">
+      <div className={clsx("card-demo", styles.cardDemo)}>
+        <div className={clsx("card", styles.card)}>
           <div className="card__header">
             <Heading as='h3'>{title}</Heading>
           </div>
-          <div className="card__body">
+          <div className={clsx("card__body", styles.cardBody)}>
             <p>{description}</p>
           </div>
           <div className="card__footer">
@@ -82,7 +94,7 @@ export default function HomepageCards(): JSX.Element {
         <p>
           Besu is an open source Ethereum client developed under the
           Apache 2.0 license and written in Java. It runs on public and private
-          networks:
+          networks. You can also extend Besu&apos;s functionality using plugins.
         </p>
         <div className="row">
           {CardList.map((props, idx) => (

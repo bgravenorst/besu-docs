@@ -10,6 +10,13 @@ const config = {
   favicon: "img/favicon.svg",
   trailingSlash: false,
 
+  // Single source of truth for the current Besu release version.
+  // The Plugin API reference Javadoc is fetched at build time for this version.
+  // Update this field when cutting a new Besu release.
+  customFields: {
+    besuVersion: "26.6.0",
+  },
+
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "besu-eth", // Usually your GitHub org/user name.
@@ -110,6 +117,13 @@ const config = {
             label: "Private networks",
           },
           {
+            type: "docSidebar",
+            sidebarId: "pluginsDocSidebar",
+            docId: "index",
+            position: "left",
+            label: "Plugins",
+          },
+          {
             href: "https://github.com/besu-eth/besu/",
             className: "header-github-link",
             position: "right",
@@ -184,6 +198,31 @@ const config = {
               {
                 label: "Reference",
                 to: "/private-networks/reference",
+              },
+            ],
+          },
+          {
+            title: "Plugins",
+            items: [
+              {
+                label: "Introduction",
+                to: "/plugins",
+              },
+              {
+                label: "Get started",
+                to: "/plugins/get-started",
+              },
+              {
+                label: "Services",
+                to: "/plugins/services",
+              },
+              {
+                label: "How to guides",
+                to: "/plugins/how-to",
+              },
+              {
+                label: "Reference",
+                to: "/plugins/reference",
               },
             ],
           },
@@ -328,11 +367,11 @@ const config = {
           },
           {
             from: "/private-networks/concepts/plugins",
-            to: "/public-networks/concepts/plugins",
+            to: "/plugins",
           },
           {
             from: "/private-networks/reference/plugin-api-interfaces",
-            to: "/public-networks/reference/plugin-api-interfaces",
+            to: "/plugins",
           },
           {
             from: "/private-networks/reference/api/objects",

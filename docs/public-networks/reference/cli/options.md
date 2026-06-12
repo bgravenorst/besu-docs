@@ -3703,7 +3703,7 @@ plugin-block-txs-selection-max-time=50
 
 </Tabs>
 
-Maximum time, as a percentage of the overall block creation time, that [plugins](../../concepts/plugins.md) can use to propose their own transactions during block creation.
+Maximum time, as a percentage of the overall block creation time, that [plugins](../../../plugins/index.md) can use to propose their own transactions during block creation.
 The default is `50`: limiting plugins to up to 50% of the total block creation time.
 
 ### `plugin-continue-on-error`
@@ -3739,7 +3739,7 @@ plugin-continue-on-error=true
 </TabItem>
 </Tabs>
 
-Enables or disables continuing to run Besu if a [plugin](../../concepts/plugins.md)
+Enables or disables continuing to run Besu if a [plugin](../../../plugins/index.md)
 fails during registration or other startup lifecycle stages.
 If set to `true` and any plugin fails, Besu logs an error and continues running.
 If set to `false` and any plugin fails, Besu logs an error and stops running.
@@ -3779,7 +3779,7 @@ plugins-verification-mode=FULL
 </TabItem>
 </Tabs>
 
-Controls whether Besu fails to start if a [plugin's](../../concepts/plugins.md) verification fails at 
+Controls whether Besu fails to start if a [plugin's](../../../plugins/index.md) verification fails at 
 startup.
 
 Verification mode options are `NONE` or `FULL`:
@@ -3821,7 +3821,7 @@ plugins=["essential-plugin","security-plugin"]
 </TabItem>
 </Tabs>
 
-Comma-separated list of [plugin](../../concepts/plugins.md) names to load. Each plugin must reside in
+Comma-separated list of [plugin](../../../plugins/index.md) names to load. Each plugin must reside in
 the `plugins` directory. If you omit this option, Besu automatically loads all plugins found in that directory.
 
 The plugin name is case-sensitive, and is the name of the class that implements

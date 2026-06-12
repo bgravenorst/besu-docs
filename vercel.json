@@ -70,6 +70,18 @@
     {
       "source": "/private-networks/tutorials/clique/",
       "destination": "/private-networks/tutorials/"
+    },
+    {
+      "source": "/public-networks/concepts/plugins/",
+      "destination": "/plugins/"
+    },
+    {
+      "source": "/private-networks/concepts/permissioning/plugin/",
+      "destination": "/plugins/features/permissioning-peers/"
+    },
+    {
+      "source": "/public-networks/reference/plugin-api-interfaces/",
+      "destination": "/plugins/"
     }
   ],
   "rewrites": [
