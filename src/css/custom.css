@@ -254,7 +254,7 @@ html[data-theme="dark"] .header-dockerhub-link::before {
 
   .header-twitter-link::after {
     margin-left: 20px;
-    content: "Twitter ";
+    content: "X ";
   }
 
   .header-discord-link::after {

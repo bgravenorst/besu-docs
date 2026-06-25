@@ -134,7 +134,7 @@ const config = {
             position: "right",
           },
           {
-            href: "https://twitter.com/HyperledgerBesu",
+            href: "https://x.com/Besu_eth",
             className: "header-twitter-link",
             position: "right",
           },
@@ -238,8 +238,8 @@ const config = {
                 href: "https://lf-hyperledger.atlassian.net/wiki/spaces/BESU/overview",
               },
               {
-                label: "Besu Twitter",
-                href: "https://twitter.com/HyperledgerBesu",
+                label: "Besu X",
+                href: "https://x.com/Besu_eth",
               },
               {
                 label: "Besu GitHub",
