@@ -99,7 +99,7 @@ Set to `0` to return the lower-bound value (next block's base fee or configured 
 gas price) without sampling any historical blocks.
 
 :::note
-In Besu 26.6.1 and earlier, setting `api-gas-price-blocks=0` was incorrectly treated as
+In Besu 26.6.1 and earlier, setting `--api-gas-price-blocks=0` was incorrectly treated as
 `1`, causing Besu to sample one block.
 If you relied on that behavior, set `--api-gas-price-blocks=1` instead.
 :::
