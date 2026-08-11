@@ -50,6 +50,7 @@ Retrieve block and transaction information.
 
 - `debug_getBadBlocks`
 - `debug_getRawBlock`
+- `debug_getRawBlockAccessList`
 - `debug_getRawHeader`
 - `debug_getRawReceipts`
 - `debug_getRawTransaction`

@@ -9,7 +9,181 @@ toc_max_heading_level: 2
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-These methods query blocks and their contents, including block details, transaction counts, receipts, and uncles.
+These methods query blocks and their contents, including block details, block access lists,
+transaction counts, receipts, and uncles.
+
+## `eth_getBlockAccessList`
+
+Returns the
+[Ethereum Improvement Proposal 7928 (EIP-7928)](https://eips.ethereum.org/EIPS/eip-7928)
+block access list (BAL) for the specified block.
+The BAL records the accounts and storage locations accessed during block execution, along with
+post-execution values.
+
+Returns data only for blocks that include an EIP-7928 BAL.
+
+### Parameters
+
+- `blockNumber` or `blockHash`: _string_ - Hexadecimal integer representing a block number,
+  32-byte block hash, or one of the string tags `latest`, `earliest`, `pending`, `finalized`, or
+  `safe`, as described in
+  [block parameter](../../../how-to/use-besu-api/json-rpc.md#block-parameter).
+
+  :::note
+  `pending` returns `null`.
+  :::
+
+### Returns
+
+- Array of account change objects for the block access list, or `null` when the block is not
+  found.
+
+  <Fields>
+
+  - `address`: _data, 20 bytes_ - Account address.
+
+  - `storageChanges`: _array_ - Storage slots written during block execution.
+
+    <Fields>
+
+    - `key`: _data, 32 bytes_ - Storage slot key.
+
+    - `changes`: _array_ - Post-execution storage values for the slot.
+
+      <Fields>
+
+      - `index`: _quantity_ - Block access index for the change.
+        `0` is pre-execution, `1` through `n` are transactions, and `n+1` is post-execution.
+
+      - `value`: _data, 32 bytes_ - Post-execution storage value.
+
+      </Fields>
+
+    </Fields>
+
+  - `storageReads`: _array of data, 32 bytes_ - Storage slot keys read during block execution
+    without a corresponding write.
+
+  - `balanceChanges`: _array_ - Post-execution balance updates for the account.
+
+    <Fields>
+
+    - `index`: _quantity_ - Block access index for the change.
+
+    - `value`: _quantity_ - Post-execution balance, in Wei.
+
+    </Fields>
+
+  - `nonceChanges`: _array_ - Post-execution nonce updates for the account.
+
+    <Fields>
+
+    - `index`: _quantity_ - Block access index for the change.
+
+    - `value`: _quantity_ - Post-execution nonce.
+
+    </Fields>
+
+  - `codeChanges`: _array_ - Post-execution code updates for the account.
+
+    <Fields>
+
+    - `index`: _quantity_ - Block access index for the change.
+
+    - `code`: _data_ - Post-execution contract bytecode.
+
+    </Fields>
+
+  </Fields>
+
+:::note
+Returns a JSON-RPC error (`Resource not found`) for blocks that don't include an EIP-7928 BAL,
+and (`Pruned history unavailable`) when the BAL is missing from local storage.
+:::
+
+### Example
+
+<Tabs>
+
+<TabItem value="curl HTTP" label="curl HTTP" default>
+
+```bash
+curl -X POST http://127.0.0.1:8545/ \
+  -H "Content-Type: application/json" \
+  --data '{
+    "jsonrpc": "2.0",
+    "method": "eth_getBlockAccessList",
+    "params": [
+      "0x1"
+    ],
+    "id": 1
+  }'
+```
+
+</TabItem>
+
+<TabItem value="wscat WS" label="wscat WS">
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockAccessList",
+  "params": [
+    "0x1"
+  ],
+  "id": 1
+}
+```
+
+</TabItem>
+
+<TabItem value="JSON result" label="JSON result">
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": [
+    {
+      "address": "0x00000961ef480eb55e80d19ad83579a64c007002",
+      "storageChanges": [],
+      "storageReads": [
+        "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "0x0000000000000000000000000000000000000000000000000000000000000002",
+        "0x0000000000000000000000000000000000000000000000000000000000000003"
+      ],
+      "balanceChanges": [],
+      "nonceChanges": [],
+      "codeChanges": []
+    },
+    {
+      "address": "0x0000f90827f1c53a10cb7a02335b175320002935",
+      "storageChanges": [
+        {
+          "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "changes": [
+            {
+              "index": "0x0",
+              "value": "0xe4e54508f0865fe3ebc1b5ac710c1fd696b2a2ce797d4111120e0378c0b1cd81"
+            }
+          ]
+        }
+      ],
+      "storageReads": [],
+      "balanceChanges": [],
+      "nonceChanges": [],
+      "codeChanges": []
+    }
+  ]
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+---
 
 ## `eth_getBlockByHash`
 

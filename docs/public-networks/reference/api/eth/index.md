@@ -46,6 +46,7 @@ Query client and network information.
 
 Query blocks and their contents.
 
+- `eth_getBlockAccessList`
 - `eth_getBlockByHash`
 - `eth_getBlockByNumber`
 - `eth_getBlockReceipts`
