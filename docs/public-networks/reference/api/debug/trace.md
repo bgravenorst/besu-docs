@@ -245,7 +245,8 @@ Reruns the transaction with the same state as when the transaction executed.
     Empty output is `"0x"`.
 
   - `structLogs`: _array_ - Array of structured log objects.
-    Empty when the executed code is empty (for example, a plain value transfer).
+    Empty when the executed code is empty (for example, a plain value transfer
+    between two externally owned accounts (EOAs)).
 
     <Fields>
 
@@ -390,7 +391,8 @@ Returns full trace of all invoked opcodes of all transactions included in the bl
     Empty output is `"0x"`.
 
   - `structLogs`: _array_ - Array of structured log objects.
-    Empty when the executed code is empty (for example, a plain value transfer).
+    Empty when the executed code is empty (for example, a plain value transfer
+    between two externally owned accounts (EOAs)).
 
     <Fields>
 
@@ -517,7 +519,8 @@ Returns full trace of all invoked opcodes of all transactions included in the bl
     Empty output is `"0x"`.
 
   - `structLogs`: _array_ - Array of structured log objects.
-    Empty when the executed code is empty (for example, a plain value transfer).
+    Empty when the executed code is empty (for example, a plain value transfer
+    between two externally owned accounts (EOAs)).
 
     <Fields>
 
@@ -652,7 +655,8 @@ Returns full trace of all invoked opcodes of all transactions included in the bl
     Empty output is `"0x"`.
 
   - `structLogs`: _array_ - Array of structured log objects.
-    Empty when the executed code is empty (for example, a plain value transfer).
+    Empty when the executed code is empty (for example, a plain value transfer
+    between two externally owned accounts (EOAs)).
 
     <Fields>
 
@@ -852,7 +856,8 @@ temporary state changes without affecting the actual blockchain state.
     Empty output is `"0x"`.
 
   - `structLogs`: _array_ - Array of structured log objects.
-    Empty when the executed code is empty (for example, a plain value transfer).
+    Empty when the executed code is empty (for example, a plain value transfer
+    between two externally owned accounts (EOAs)).
 
     <Fields>
 
