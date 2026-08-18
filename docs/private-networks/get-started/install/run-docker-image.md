@@ -97,14 +97,6 @@ This happens when the IPv6 support in Docker is disabled while connecting to an 
 
 :::
 
-### Run a node for testing
-
-To run a node for testing purposes with WebSocket enabled:
-
-```bash
-docker run -p 8546:8546 --mount type=bind,source=/<myvolume/besu/testnode>,target=/var/lib/besu hyperledger/besu:latest --rpc-ws-enabled --network=dev --data-path=/var/lib/besu
-```
-
 ## Stop Besu and clean up resources
 
 When done running nodes, you can shut down the node container without deleting resources or you can delete the container after stopping it. Run `docker container ls` and `docker volume ls` to get the container and volume names.
