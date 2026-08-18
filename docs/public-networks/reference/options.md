@@ -2528,48 +2528,6 @@ The job name when in `push` mode. The default is `besu-client`.
 
 ---
 
-## `min-block-occupancy-ratio`
-
-<Tabs>
-
-<TabItem value="Command line example">
-
-```bash
---min-block-occupancy-ratio=0.5
-```
-
-</TabItem>
-
-<TabItem value="Environment variable example">
-
-```bash
-BESU_MIN_BLOCK_OCCUPANCY_RATIO=0.5
-```
-
-</TabItem>
-
-<TabItem value="Config file example">
-
-```bash
-min-block-occupancy-ratio="0.5"
-```
-
-</TabItem>
-
-</Tabs>
-
-Minimum occupancy ratio for a mined block if the transaction pool is not empty. When filling a block during mining, the occupancy ratio indicates the threshold at which the node stops waiting for smaller transactions to fill the remaining space. The default is 0.8.
-
-:::warning Deprecated
-
-The `--min-block-occupancy-ratio` option is deprecated and will be removed in a
-future release.
-Besu recognizes this option, but it has no effect.
-
-:::
-
----
-
 ## `min-gas-price`
 
 <Tabs>
