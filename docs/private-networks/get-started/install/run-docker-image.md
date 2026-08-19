@@ -97,6 +97,12 @@ This happens when the IPv6 support in Docker is disabled while connecting to an 
 
 :::
 
+### Run a node for testing
+
+To run a local network for testing, use the
+[Developer Quickstart](../../tutorials/quickstart.md), which uses Docker Compose to generate a
+private network of Besu nodes.
+
 ## Stop Besu and clean up resources
 
 When done running nodes, you can shut down the node container without deleting resources or you can delete the container after stopping it. Run `docker container ls` and `docker volume ls` to get the container and volume names.

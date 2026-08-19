@@ -102,6 +102,20 @@ besu --rpc-http-enabled
 
 See the [guide on connecting to Mainnet](connect/mainnet.md) for more information.
 
+## Run a node for local development
+
+Besu doesn't provide a built-in development network. Use one of the following instead:
+
+- [Ephemery](https://github.com/ephemery-testnet/ephemery-resources) is a public testnet that resets
+  periodically. Start Besu with `--network=ephemery` and pair it with a consensus client, as
+  described in [Run Besu and Teku on a testnet](../tutorials/besu-teku-testnet.md).
+- [Kurtosis](https://github.com/ethpandaops/ethereum-package) runs a self-contained network of
+  execution and consensus clients in Docker.
+
+To run an isolated network that you control, define your own
+[genesis file](../reference/options.md#genesis-file) and start a private network. The
+[Developer Quickstart](/private-networks/tutorials/quickstart) generates one for you.
+
 ## Confirm node is running
 
 If you started Besu with the [`--rpc-http-enabled`](../reference/options.md#rpc-http-enabled) option, use [cURL](https://curl.haxx.se/) to call [JSON-RPC API methods](../reference/api/index.md) to confirm the node is running.

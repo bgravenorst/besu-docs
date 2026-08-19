@@ -100,6 +100,12 @@ This happens when the IPv6 support in Docker is disabled while connecting to an 
 
 :::
 
+### Run a node for testing
+
+Besu doesn't provide a built-in development network. For local development options, including
+Ephemery and Kurtosis, see
+[Run a node for local development](../start-node.md#run-a-node-for-local-development).
+
 ### Run a node on Sepolia testnet
 
 To run a node on Sepolia:

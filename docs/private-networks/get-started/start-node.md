@@ -64,6 +64,8 @@ besu --genesis-file=<path>/genesis.json --data-path=<data-path> --rpc-http-enabl
 
 Where `<data-path>` is the path to the directory to save the chain data to. Ensure you configure a peer discovery method, such as [bootnodes](../how-to/configure/bootnodes.md).
 
+If you don't have a network yet, use the [Developer Quickstart](../tutorials/quickstart.md) to generate one for testing, or follow [Create a QBFT network](../tutorials/qbft.md) to configure one yourself.
+
 :::note
 
 You might need to set [`--tx-pool-limit-by-account-percentage`](../../public-networks/reference/options.md#tx-pool-limit-by-account-percentage) to 1. The default value is suitable for Mainnet, but may cause issues on private networks.
