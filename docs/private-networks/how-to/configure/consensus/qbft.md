@@ -44,7 +44,8 @@ The genesis file differs depending on the [validator management method](#add-and
 
 :::note
 
-You can use a [transitions](#transitions) to change the `blockperiodseconds` or validator management method of the network at a later time.
+You can use a [transitions](#transitions) to change the `blockperiodseconds`,
+`pertxgaslimit`, or validator management method of the network at a later time.
 
 :::
 
@@ -162,6 +163,18 @@ You can configure the following properties in the `qbft` configuration object:
   The default is 0, which disables the empty block delay.
 - `epochlength` - The number of blocks after which to reset all votes.
   The default is 30000.
+- `pertxgaslimit` - Maximum gas allowed for a single transaction.
+  Omit this field to keep the Ethereum Improvement Proposal 7825
+  ([EIP-7825](https://eips.ethereum.org/EIPS/eip-7825)) default of
+  `16777216` (`2^24`).
+  Set `0` to disable the cap so only the block `gasLimit` applies.
+  Set a positive value to cap each transaction at that amount.
+  A positive value must be less than or equal to the genesis
+  `gasLimit`. Besu validates this at startup.
+  Specify a hexadecimal value with a `0x` prefix or a decimal value.
+  Use this on private QBFT networks that need transactions larger
+  than the EIP-7825 default, such as [free gas networks](../../free-gas.md).
+  You can also change this later with a [transition](#transitions).
 - `requesttimeoutseconds` - The timeout for each consensus round before a round change, in seconds.
   The default is 1.
 - `blockreward` - Reward amount in Wei to reward the beneficiary.
@@ -416,6 +429,7 @@ QBFT requires four validators to be Byzantine fault tolerant. Byzantine fault to
 The `transitions` genesis configuration item allows you to specify a future block number at which to
 change the QBFT network configuration in an existing network.
 For example, you can update the [block time](#configure-block-time-on-an-existing-network),
+[per-transaction gas cap](#configure-the-per-transaction-gas-cap-on-an-existing-network),
 [block reward](#configure-block-rewards-on-an-existing-network),
 [validator management method](#swap-validator-management-methods), or
 [mining beneficiary](#configure-the-mining-beneficiary-on-an-existing-network).
@@ -492,6 +506,73 @@ To update an existing network with a new `blockperiodseconds`:
 3.  Restart all nodes in the network using the updated genesis file.
 4.  To verify the changes after the transition block, view the Besu logs and check that the time
     difference between each block matches the updated block period.
+
+### Configure the per-transaction gas cap on an existing network
+
+To update an existing network with a new `pertxgaslimit`:
+
+1.  Stop all nodes in the network.
+2.  In the [genesis file](#genesis-file), add the `transitions`
+    configuration item where:
+
+    - `<FutureBlockNumber>` is the upcoming block at which to change
+      `pertxgaslimit`.
+    - `<NewValue>` is the updated value for `pertxgaslimit`.
+
+    <Tabs>
+    <TabItem value="Syntax" label="Syntax" default>
+
+    ```json
+    {
+      "config": {
+        ...
+        "qbft": {
+          "blockperiodseconds": 2,
+          "epochlength": 30000,
+          "requesttimeoutseconds": 4
+        },
+        "transitions": {
+          "qbft": [
+            {
+              "block": <FutureBlockNumber>,
+              "pertxgaslimit": <NewValue>
+            }
+          ]
+        }
+      },
+      ...
+    }
+    ```
+
+    </TabItem>
+    <TabItem value="Example" label="Example">
+
+    ```json
+    {
+      "config": {
+        ...
+        "qbft": {
+          "blockperiodseconds": 2,
+          "epochlength": 30000,
+          "requesttimeoutseconds": 4
+        },
+        "transitions": {
+          "qbft": [
+            {
+              "block": 1240,
+              "pertxgaslimit": 0
+            }
+          ]
+        }
+      },
+      ...
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+
+3.  Restart all nodes in the network using the updated genesis file.
 
 ### Configure block rewards on an existing network
 

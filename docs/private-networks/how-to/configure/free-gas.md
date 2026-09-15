@@ -50,7 +50,22 @@ If you want to remove gas from consideration and don't mind blocks potentially t
 
 If you are more concerned about blocks arriving on time and don't have expensive individual transactions, set `gasLimit` to a value closer to the amount of gas your validators can process in the configured block time.
 
-### 2. Set the contract size
+### 2. Override the per-transaction gas cap if needed
+
+Ethereum Improvement Proposal 7825
+([EIP-7825](https://eips.ethereum.org/EIPS/eip-7825)) caps each
+transaction at `16777216` (`2^24`) gas, even if the block `gasLimit`
+is larger.
+On QBFT or IBFT 2.0 networks that need larger deployment or
+migration transactions, set `pertxgaslimit` in the consensus object.
+
+Set `0` to disable the cap. Set a positive value to use a custom cap.
+A positive value must be less than or equal to the genesis `gasLimit`.
+
+See [`pertxgaslimit` for QBFT](consensus/qbft.md#genesis-file) or
+[`pertxgaslimit` for IBFT 2.0](consensus/ibft.md#genesis-file).
+
+### 3. Set the contract size
 
 In the `config` section of the genesis file, set the contract size limit to the maximum supported size (in bytes).
 
@@ -65,7 +80,7 @@ In the `config` section of the genesis file, set the contract size limit to the 
 }
 ```
 
-### 3. Set a minimum gas price of zero
+### 4. Set a minimum gas price of zero
 
 When starting nodes, set the [minimum gas price](../../../public-networks/reference/options.md#min-gas-price) to zero.
 
@@ -95,7 +110,7 @@ In a free gas network, ensure the [minimum gas price](../../../public-networks/r
 
 :::
 
-### 4. Disable the transaction pool balance check
+### 5. Disable the transaction pool balance check
 
 Senders in a free gas network can have a zero balance and still submit valid transactions.
 [`--tx-pool-enable-balance-check`](../../../public-networks/reference/options.md#tx-pool-enable-balance-check)
@@ -123,7 +138,7 @@ tx-pool-enable-balance-check=false
 
 </Tabs>
 
-### 5. Enable zero base fee if using London fork or later
+### 6. Enable zero base fee if using London fork or later
 
 If your network is configured to use the `londonBlock` or a later hard fork, then you must also enable the `zeroBaseFee` configuration. You must set this on all your nodes. Once it is set, future blocks produced by that node will set a `baseFee` of 0. This is required because the London hard fork (EIP-1559) introduced a non-zero `baseFee` into the block which normally means transactions require gas.
 
