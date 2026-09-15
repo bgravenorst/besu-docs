@@ -82,7 +82,7 @@ You can configure the following properties in the `ibft2` configuration object:
   `gasLimit`. Besu validates this at startup.
   Specify a hexadecimal value with a `0x` prefix or a decimal value.
   Use this on private IBFT 2.0 networks that need transactions larger
-  than the EIP-7825 default, such as [free gas networks](../../free-gas.md).
+  than the EIP-7825 default, such as [free gas networks](../free-gas.md).
   You can also change this later with a [transition](#transitions).
 - `requesttimeoutseconds` - The timeout for each consensus round before a round change, in seconds.
   The default is 1.
