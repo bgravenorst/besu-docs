@@ -77,6 +77,7 @@ Don't mount a volume at the default data path (`/opt/besu`). Mounting a volume a
 To run a node that maintains the node state (key and database), [`--data-path`](../../reference/options.md#data-path) must be set to a location other than `/opt/besu` and a storage volume mounted at that location.
 
 When running in a Docker container, [`--nat-method`](../../how-to/connect/specify-nat.md) must be set to `DOCKER` or `AUTO` (default). Don't set [`--nat-method`](../../how-to/connect/specify-nat.md) to `NONE` or `UPNP`.
+To advertise the host IP and host-mapped ports, see [Specify the NAT method](../../how-to/connect/specify-nat.md#docker).
 
 :::
 

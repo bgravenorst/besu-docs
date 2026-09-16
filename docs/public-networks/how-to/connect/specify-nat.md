@@ -4,11 +4,24 @@ sidebar_position: 4
 description: Configuring NAT with Besu
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Specify the NAT method
 
-Use the [`--nat-method`](../../reference/options.md#nat-method) option to specify the NAT method. Options are: [`UPNP`](#upnp), [`DOCKER`](#docker), [`AUTO`](#auto), and [`NONE`](#none).
+Use the [`--nat-method`](../../reference/options.md#nat-method) option to specify the NAT method.
+Options are: [`UPNP`](#upnp), [`DOCKER`](#docker), [`AUTO`](#auto), and [`NONE`](#none).
 
-The [enode](../../concepts/node-keys.md#enode-url) advertised to other nodes during discovery is the external IP address and port. The [`admin_nodeInfo`](../../reference/api/admin.md#admin_nodeinfo) JSON-RPC API method returns the external address and port for the `enode` and `listenAddr` properties.
+The [enode](../../concepts/node-keys.md#enode-url) advertised to other nodes during discovery is
+the external IP address and port.
+The [`admin_nodeInfo`](../../reference/api/admin.md#admin_nodeinfo) JSON-RPC API method returns
+the external address and port for the `enode` and `listenAddr` properties.
+
+[`--nat-method`](../../reference/options.md#nat-method) `UPNP` and `DOCKER` apply to the primary
+advertised host, which is typically IPv4.
+For dual-stack IPv6 advertised addresses, set
+[`--p2p-host-ipv6`](../../reference/options.md#p2p-host-ipv6) or allow discovery v5 peer consensus.
+See [IPv6 and dual-stack networking](../../concepts/ipv6-dual-stack.md).
 
 While Besu is running, the following are not supported:
 
@@ -51,9 +64,86 @@ When the NAT method is set to `UPNP`, the advertised port is the same as the [li
 
 ## Docker
 
-Specify `DOCKER` to explicitly specify Besu is running inside a Docker container. If you specify `DOCKER`, you advertise the host IP address not the container IP address.
+Specify `DOCKER` when Besu runs inside a Docker container.
+Besu advertises the host IP address, not the container IP address.
+`AUTO` already selects `DOCKER` when Besu detects a container, so these settings also apply with
+the default NAT method.
 
-The host IP address is the advertised host specified in the [`docker run` command](https://docs.docker.com/engine/reference/commandline/run/#add-entries-to-container-hosts-file---add-host). If not specified in the `docker run` command, the advertised host defaults to the values for [`--p2p-host`](../../reference/options.md#p2p-host) and [`--p2p-port`](../../reference/options.md#p2p-port).
+Publish container ports with [`docker run -p`](https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p---expose).
+Docker NAT does not create those mappings for you.
+
+### Advertise the host IP
+
+Besu resolves the advertised host by looking up the hostname `HOST_IP`.
+Add that hostname to the container hosts file with the IP address other peers can reach.
+Use the public IP (or the LAN IP, if peers are only on that network).
+Do not use the container IP, the Docker bridge IP (for example `172.17.0.1`), or `127.0.0.1`.
+
+<Tabs>
+<TabItem value="docker-run" label="Docker run" default>
+
+```bash
+docker run --add-host=HOST_IP:<EXTERNAL_IP> -p 30303:30303 hyperledger/besu:latest
+```
+
+</TabItem>
+<TabItem value="compose" label="Compose">
+
+```yaml
+services:
+  besu:
+    extra_hosts:
+      - "HOST_IP:<EXTERNAL_IP>"
+    ports:
+      - "30303:30303"
+```
+
+</TabItem>
+</Tabs>
+
+See the [`docker run --add-host` documentation](https://docs.docker.com/engine/reference/commandline/run/#add-entries-to-container-hosts-file---add-host).
+
+If `HOST_IP` is missing or not resolvable, Besu uses [`--p2p-host`](../../reference/options.md#p2p-host).
+The default `--p2p-host` is `127.0.0.1`, so the node can start and still advertise localhost.
+Other peers cannot dial that address. Set `HOST_IP` (or set `--p2p-host` to a reachable address).
+
+### Report host-mapped ports
+
+If the host port differs from the container port, set the `HOST_PORT_<internal-port>` environment
+variable to the host port.
+Besu uses this value in [`admin_nodeInfo`](../../reference/api/admin.md#admin_nodeinfo) for the
+`enode`, `listenAddr`, and `ports` fields.
+
+The `<internal-port>` in the variable name is the port Besu bound inside the container.
+If you set [`--p2p-port=0`](../../reference/options.md#p2p-port), use the port Besu actually bound,
+not `0`.
+
+This override does not change the ports Besu writes into the local enode used for discovery.
+
+<Tabs>
+<TabItem value="docker-run-port" label="Docker run" default>
+
+```bash
+docker run --add-host=HOST_IP:<EXTERNAL_IP> -p 50303:30303 \
+  -e HOST_PORT_30303=50303 hyperledger/besu:latest
+```
+
+</TabItem>
+<TabItem value="compose-port" label="Compose">
+
+```yaml
+services:
+  besu:
+    extra_hosts:
+      - "HOST_IP:<EXTERNAL_IP>"
+    environment:
+      HOST_PORT_30303: "50303"
+    ports:
+      - "50303:30303"
+```
+
+</TabItem>
+</Tabs>
 
 ## None
 
