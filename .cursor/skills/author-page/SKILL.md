@@ -201,6 +201,8 @@ Fill in the scaffold with content based on what the user provides. Follow these 
   first word) and a closing period. This applies to both inline (`//`) and block (`/* */`) comments
   in Java snippets, and to `#` comments in shell/bash snippets.
 - **Terminology**: use the required forms from `terminology.mdc`.
+  For EIPs, write `EIP-<number>` (link the spec on first mention). Do not spell out
+  "Ethereum Improvement Proposal".
 - **No marketing language**: no "powerful," "seamless," "best-in-class."
 - **No invented API behavior**: if you are not certain about a parameter, return value, or
   behavior, add a `:::note` admonition flagging it for review rather than stating it as fact.

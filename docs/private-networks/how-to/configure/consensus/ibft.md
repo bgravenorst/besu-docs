@@ -73,8 +73,8 @@ You can configure the following properties in the `ibft2` configuration object:
 - `epochlength` - The number of blocks after which to reset all votes.
   The default is 30000.
 - `pertxgaslimit` - Maximum gas allowed for a single transaction.
-  Omit this field to keep the Ethereum Improvement Proposal 7825
-  ([EIP-7825](https://eips.ethereum.org/EIPS/eip-7825)) default of
+  Omit this field to keep the
+  [EIP-7825](https://eips.ethereum.org/EIPS/eip-7825) default of
   `16777216` (`2^24`).
   Set `0` to disable the cap so only the block `gasLimit` applies.
   Set a positive value to cap each transaction at that amount.

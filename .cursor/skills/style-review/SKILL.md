@@ -55,8 +55,10 @@ source of truth for full criteria, examples, and edge cases.
 
 - Product names match the required forms (Besu, JSON-RPC, etc.).
 - Consensus protocol names use correct casing (IBFT 2.0, QBFT, Clique).
-- Standards spelled out on first use with identifier in parentheses (for example,
-  "Ethereum Improvement Proposal 1559 (EIP-1559)"), short form on subsequent references.
+- EIPs use the short form (`EIP-1559`). Do not spell out "Ethereum Improvement Proposal".
+  Link the spec on first mention of that EIP on the page.
+- Other standards: spell out on first use with the identifier in parentheses (for example,
+  "Engine API specification"), short form on subsequent references.
 - Area-specific terminology matches the corresponding `product-*.mdc` rule file.
 
 ### Markdown formatting (markdown-formatting.mdc)

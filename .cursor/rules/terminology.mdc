@@ -36,12 +36,18 @@ listed on the right unless they appear in code, URLs, or direct quotations from 
 
 ## Standards and specifications
 
-When introducing a standard for the first time on a page, spell out the full name with the
+Besu readers already know what an EIP is. Use the short form `EIP-<number>` in prose.
+Do not spell out "Ethereum Improvement Proposal" on first use.
+On first mention of a given EIP on a page, link to the specification
+(for example, `[EIP-1559](https://eips.ethereum.org/EIPS/eip-1559)`).
+Use the unlinked short form on later mentions of that EIP on the same page.
+
+For other standards (not EIPs), spell out the full name on first use with the
 identifier in parentheses. Use the short form on subsequent references.
 
 Examples:
 
-- First use: "Ethereum Improvement Proposal 1559 (EIP-1559)"
+- First use: "[EIP-1559](https://eips.ethereum.org/EIPS/eip-1559)"
 - Subsequent: "EIP-1559"
 - First use: "Engine API specification"
 - Subsequent: "Engine API"

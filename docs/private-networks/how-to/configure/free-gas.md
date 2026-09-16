@@ -52,8 +52,7 @@ If you are more concerned about blocks arriving on time and don't have expensive
 
 ### 2. Override the per-transaction gas cap if needed
 
-Ethereum Improvement Proposal 7825
-([EIP-7825](https://eips.ethereum.org/EIPS/eip-7825)) caps each
+[EIP-7825](https://eips.ethereum.org/EIPS/eip-7825) caps each
 transaction at `16777216` (`2^24`) gas, even if the block `gasLimit`
 is larger.
 On QBFT or IBFT 2.0 networks that need larger deployment or
