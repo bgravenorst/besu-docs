@@ -14,7 +14,7 @@ const config = {
   // The Plugin API reference Javadoc is fetched at build time for this version.
   // Update this field when cutting a new Besu release.
   customFields: {
-    besuVersion: "26.6.0",
+    besuVersion: "26.8.1",
   },
 
   // GitHub pages deployment config.

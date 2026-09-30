@@ -67,3 +67,23 @@ Deduplicate at a shared data layer keyed by both block hash and transaction hash
 On proof of stake networks, each block is processed once and the tracer fires once per transaction.
 </div>
 </details>
+
+## Trace system calls
+
+System calls run outside normal transaction processing.
+Besu does not trace them unless your tracer opts in.
+
+Override `isSystemCallTracingEnabled` on
+[`BlockAwareOperationTracer`](pathname:///plugins/reference/plugin-api/org/hyperledger/besu/plugin/services/tracer/BlockAwareOperationTracer.html)
+and return `true` to trace calls Besu makes to system contracts during block processing.
+Examples include storing historical block hashes ([EIP-2935](https://eips.ethereum.org/EIPS/eip-2935)) and 
+processing execution layer withdrawal requests ([EIP-7002](https://eips.ethereum.org/EIPS/eip-7002)).
+
+```java
+public class ExampleSystemCallTracer implements BlockAwareOperationTracer {
+  @Override
+  public boolean isSystemCallTracingEnabled() {
+    return true;
+  }
+}
+```

@@ -37,7 +37,7 @@ plugins {
 }
 
 besuPlugin {
-    besuVersion = '26.6.0'
+    besuVersion = '26.8.1'
 }
 ```
 
@@ -78,7 +78,7 @@ Besu version you are targeting:
 
 ```groovy title="build.gradle"
 dependencies {
-    compileOnly 'org.hyperledger.besu:besu-plugin-api:26.6.0'
+    compileOnly 'org.hyperledger.besu:besu-plugin-api:26.8.1'
 }
 ```
 

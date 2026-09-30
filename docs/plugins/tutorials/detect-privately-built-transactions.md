@@ -71,7 +71,7 @@ plugins {
 }
 
 besuPlugin {
-    besuVersion = '26.6.0'
+    besuVersion = '26.8.1'
 }
 ```
 
