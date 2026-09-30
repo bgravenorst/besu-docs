@@ -2104,7 +2104,52 @@ logging="DEBUG"
 
 </Tabs>
 
-Sets logging verbosity. Log levels are `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`, `ALL`. The default is `INFO`.
+Sets logging verbosity. Log levels are `OFF`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`, and `ALL`. The default is `INFO`.
+
+---
+
+## `logging-format`
+
+<Tabs>
+
+<TabItem value="Command line example">
+
+```bash
+--logging-format=ECS
+```
+
+</TabItem>
+
+<TabItem value="Environment variable example">
+
+```bash
+BESU_LOGGING_FORMAT=ECS
+```
+
+</TabItem>
+
+<TabItem value="Config file example">
+
+```bash
+logging-format="ECS"
+```
+
+</TabItem>
+
+</Tabs>
+
+Logging format.
+This option includes standard JSON structured logging formats.
+Possible values are:
+
+- `PLAIN` (default) - Traditional pattern-based console logging
+- `ECS` - Elastic Common Schema JSON format
+- `GCP` - Google Cloud Platform JSON format
+- `LOGSTASH` - Logstash JSON Event Layout V1
+- `GELF` - Graylog Extended Log Format
+
+This enables users to select the format without requiring custom Log4j 2 configuration files.
+This is useful in containerized and cloud environments where injecting configuration files is cumbersome.
 
 ---
 

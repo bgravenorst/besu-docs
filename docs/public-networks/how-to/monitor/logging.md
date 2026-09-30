@@ -6,20 +6,22 @@ path: blob/master/besu/src/main/resources/
 source: log4j2.xml
 ---
 
-# Use logging
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Besu uses [Log4j 2](https://logging.apache.org/log4j/2.x/) for logging and provides two methods to configure logging behavior:
 
-- [Basic](#basic-logging) - Changes the log level.
-- [Advanced](#advanced-logging) - Configures the output and format of the logs.
+- [Basic](#basic-logging) - Change the log level or structured logging format.
+- [Advanced](#advanced-logging) - Configure the output and format of the logs.
 
 [Besu Developer Quickstart](https://github.com/Consensys/besu-dev-quickstart) provides an example implementation using Grafana Alloy, Loki, and Grafana for log management.
 
 ## Basic logging
 
-Use the [`--logging`](../../reference/options.md#logging) command line option to specify logging verbosity. The [`--logging`](../../reference/options.md#logging) option changes the volume of events displayed in the log. Valid log levels are `OFF`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`, `ALL`. The default level is `INFO`.
-
-For most use cases, the basic method provides enough configurability.
+Use the [`--logging`](../../reference/options.md#logging) command line option to specify logging verbosity. 
+This option changes the volume of events displayed in the log.
+Valid log levels are `OFF`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`, `ALL`.
+The default level is `INFO`.
 
 :::tip
 
@@ -27,11 +29,31 @@ Use the [`admin_changeLogLevel`](../../reference/api/admin.md#admin_changeloglev
 
 :::
 
+Use the [`--logging-format`](../../reference/options.md#logging-format) option to specify the logging format.
+You can select a structured logging format, which emits each log record as a JSON object in a well-defined 
+format, making logs consistent and machine-readable.
+Valid formats are `PLAIN`, `ECS`, `GCP`, `LOGSTASH`, and `GELF`.
+The default format is `PLAIN`, which specifies traditional pattern-based text logging.
+
 ## Advanced logging
 
-You can provide your own logging configuration using the standard Log4j 2 configuration mechanisms. For example, the following Log4j 2 configuration is the same as the [default configuration] except for the exclusion of logging of stack traces for exceptions:
+You can provide your own logging configuration using the standard Log4j 2 configuration mechanisms.
 
-```xml title="debug.xml"
+Besu includes the Log4j JSON Template Layout library, which supplies production-ready templates for each 
+structured logging format.
+Specify `JsonTemplateLayout` in your configuration file to use the Log4J templates.
+
+The following is an example of a custom configuration file, a configuration file using the default Elastic 
+Common Schema (ECS) template, and a configuration file using the Google Cloud Platform (GCP) template.
+For more information, see the Log4j
+[configuration file](https://logging.apache.org/log4j/2.x/manual/configuration.html) and
+[event templates](https://logging.apache.org/log4j/2.x/manual/json-template-layout.html#event-templates) documentation.
+
+<Tabs>
+
+<TabItem value="Custom configuration" default>
+
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration level="INFO">
   <Properties>
@@ -51,17 +73,79 @@ You can provide your own logging configuration using the standard Log4j 2 config
 </Configuration>
 ```
 
-To use your custom configuration, set the environment variable `LOG4J_CONFIGURATION_FILE` to the location of your configuration file.
+</TabItem>
 
-If you have more specific requirements, you can create your own [Log4j 2 configuration](https://logging.apache.org/log4j/2.x/manual/configuration.html).
+<TabItem value="With default ECS template">
 
-For Bash-based executions, you can set the variable for only the scope of the program execution by setting it before starting Besu.
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration level="INFO">
+  <Properties>
+    <Property name="root.log.level">INFO</Property>
+  </Properties>
 
-To set the debug logging and start Besu connected to the Sepolia testnet:
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <JsonTemplateLayout />
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="${sys:root.log.level}">
+      <AppenderRef ref="Console" />
+    </Root>
+  </Loggers>
+</Configuration>
+```
+
+</TabItem>
+
+<TabItem value="With GCP template">
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration level="INFO">
+  <Properties>
+    <Property name="root.log.level">INFO</Property>
+  </Properties>
+
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <JsonTemplateLayout eventTemplateUri="classpath:GcpLayout.json" />
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="${sys:root.log.level}">
+      <AppenderRef ref="Console" />
+    </Root>
+  </Loggers>
+</Configuration>
+```
+
+</TabItem>
+
+</Tabs>
+
+To use your custom configuration, set the `LOG4J_CONFIGURATION_FILE` environment variable to the location 
+of your configuration file.
 
 ```bash
-LOG4J_CONFIGURATION_FILE=./debug.xml besu --network=sepolia
+export LOG4J_CONFIGURATION_FILE="<path_to_file>"
 ```
+
+For Bash-based executions, you can set the variable for only the scope of the program execution by setting 
+it before starting Besu.
+
+```bash title="Set the custom logging and start Besu"
+LOG4J_CONFIGURATION_FILE="<path_to_file>" besu --network=sepolia
+```
+
+:::info note
+
+When a custom Log4j 2 configuration file is provided, it takes precedence over
+[`--logging-format`](../../reference/options.md#logging-format).
+[`--logging`](../../reference/options.md#logging) still sets the log level.
+
+:::
 
 ### Log invalid transactions
 
@@ -114,5 +198,4 @@ The [Besu Developer Quickstart](https://github.com/Consensys/besu-dev-quickstart
 
 <!-- Links -->
 
-[default configuration]: https://github.com/besu-eth/besu/blob/750580dcca349d22d024cc14a8171b2fa74b505a/besu/src/main/resources/log4j2.xml
 [log rotation to restrict the size of the log files]: https://github.com/Consensys/besu-dev-quickstart/blob/master/files/common/config/besu/log-config.xml
