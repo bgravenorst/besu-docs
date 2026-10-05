@@ -667,10 +667,13 @@ to re-execute the block without the full state.
   - `state`: _array of data_ - [RLP-encoded](https://ethereum.org/en/developers/docs/data-structures-and-encoding/rlp/)
     account and storage trie nodes for the block, sorted.
 
-  - `codes`: _array of data_ - Pre-state contract bytecodes for accounts the block access
-    list reports as touched, sorted.
+  - `codes`: _array of data_ - Pre-state contract bytecodes for accounts the
+    [EIP-7928](https://eips.ethereum.org/EIPS/eip-7928) block access list reports as
+    touched, sorted.
     Empty code is omitted.
-    The list can include bytecode the block did not read.
+    Besu includes the bytecode of every touched account that had code before the
+    block, including accounts the block did not call.
+    A balance read or an access-list entry is enough to touch an account.
 
   - `headers`: _array of data_ - RLP-encoded ancestor block headers, in ascending block
     number order.
@@ -689,9 +692,6 @@ trie log pruning works.
 :::
 
 ### Example
-
-Each value in `state`, `codes`, and `headers` is a hex string.
-The result below shortens those strings.
 
 <Tabs>
 
@@ -735,13 +735,13 @@ curl -X POST http://127.0.0.1:8545/ \
   "id": 1,
   "result": {
     "state": [
-      "0x..."
+      "0xe7a03c216028b53575ba5007db30cf00..."
     ],
     "codes": [
-      "0x..."
+      "0x3373ffffffffffffffffffffffffffffff..."
     ],
     "headers": [
-      "0x..."
+      "0xf90302a0234dbe099ccc101ee2eb17864a..."
     ]
   }
 }
