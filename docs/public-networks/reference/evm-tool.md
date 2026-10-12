@@ -571,16 +571,138 @@ Comment lines and blanks are ignored.
 Allows the [Ethereum state tests](https://github.com/ethereum/execution-spec-tests/tree/main/tests/static/state_tests)
 to be evaluated.
 Run `evmtool state-test --help` for the full list of supported options.
-Notable options are [`--json`](#json-trace) and [`--nomemory`](#nomemory-tracenomemory).
+Notable options are [`--json`](#json-trace), [`--nomemory`](#nomemory-tracenomemory),
+[`--workers`](#workers), [`--test-name`](#test-name), [`--json-array`](#json-array), and
+[`--summary-only`](#summary-only).
 
 Set `--json` for EVM Lab Fuzzing.
-Whether or not `--json` is set, a summary JSON object is printed to standard output for each state
-test executed.
+Each executed test prints a summary JSON object to standard output, whether or not
+`--json` is set.
+[`--summary-only`](#summary-only) omits that object for tests that pass.
+[`--json-array`](#json-array) prints one JSON array instead.
+The command exits with code 1 when any test fails or when no test runs.
+
+#### `workers`
+
+<Tabs>
+
+<TabItem value="Syntax" label="Syntax" default>
+
+```bash
+--workers=<integer>
+```
+
+</TabItem>
+
+<TabItem value="Example" label="Example">
+
+```bash
+--workers=4
+```
+
+</TabItem>
+
+</Tabs>
+
+Number of parallel workers used to process fixture files.
+The default is the number of available processor cores.
+A single path, including the `stdin` path, stays on one thread.
+Parallelism applies only when the run collects more than one fixture file.
+
+#### `test-name`
+
+<Tabs>
+
+<TabItem value="Syntax" label="Syntax" default>
+
+```bash
+--test-name=<string>
+```
+
+</TabItem>
+
+<TabItem value="Example" label="Example">
+
+```bash
+--test-name=accessList
+```
+
+</TabItem>
+
+</Tabs>
+
+Limits execution to tests selected by this expression.
+An expression with no `*` or `?` is a case-insensitive substring of the test name.
+An expression that contains `*` or `?` matches the whole test name.
+In that form, `*` matches any sequence of characters, `?` matches any one character,
+and `.` is literal.
+Other regular expression metacharacters, such as `[` and `(`, are not escaped.
+Quote an expression that contains `*` or `?` so the shell does not expand it.
+For example, `--test-name='*ccess?ist'`.
+The expression is compiled before any fixture is read.
+An invalid pattern exits with code 1.
+A pattern that selects no test also exits with code 1.
+
+#### `json-array`
+
+<Tabs>
+
+<TabItem value="Syntax" label="Syntax" default>
+
+```bash
+--json-array
+```
+
+</TabItem>
+
+</Tabs>
+
+Prints results as one JSON array and prints nothing else.
+Each element has `name`, `pass`, `fork`, `stateRoot`, and `error`.
+`error` is an empty string when the test passes.
+The process still exits with code 1 when any test fails or when no test runs.
+
+```json
+[
+  {
+    "name": "<test-name>",
+    "pass": true,
+    "fork": "<fork>",
+    "stateRoot": "<state-root>",
+    "error": ""
+  }
+]
+```
+
+#### `summary-only`
+
+<Tabs>
+
+<TabItem value="Syntax" label="Syntax" default>
+
+```bash
+--summary-only
+```
+
+</TabItem>
+
+</Tabs>
+
+Skips the per-test summary JSON object for tests that pass.
+Failed tests still print a summary JSON object.
+When at least one test runs, the command then prints
+`State test summary: <passed> passed, <failed> failed`.
+With `--json`, that summary line is printed only when `--summary-only` is also set.
+[`--json-array`](#json-array) ignores this option and prints only the JSON array.
 
 #### Use command arguments
 
-If you use command arguments, you can list one or more state tests.
-All the state tests are evaluated in the order they are specified.
+Pass one or more state test files or directories.
+A directory is expanded recursively to its `.json` files, in sorted order.
+Files under a `.meta` directory are skipped.
+Those files run in parallel when [`--workers`](#workers) is greater than 1 and more
+than one file is collected.
+A single file runs on one thread.
 
 <Tabs>
 
@@ -604,15 +726,14 @@ evmtool --json state-test stExample/add11.json
 
 #### Use standard input
 
-If no reference tests are passed in using the command line, the EVM tool loads one complete JSON
-object from standard input and executes that state test.
+Pass the path `stdin` to read one state test JSON object from standard input.
 
 <Tabs>
 
 <TabItem value="Docker example" label="Docker example" default>
 
 ```bash
-docker run --rm -i hyperledger/besu-evmtool:develop --json state-test < stExample/add11.json
+docker run --rm -i hyperledger/besu-evmtool:develop --json state-test stdin < stExample/add11.json
 ```
 
 </TabItem>
@@ -620,12 +741,20 @@ docker run --rm -i hyperledger/besu-evmtool:develop --json state-test < stExampl
 <TabItem value="CLI example" label="CLI example">
 
 ```bash
-evmtool --json state-test < stExample/add11.json
+evmtool --json state-test stdin < stExample/add11.json
 ```
 
 </TabItem>
 
 </Tabs>
+
+With no path argument, each line of standard input is the path of one state test
+file.
+This path runs one file at a time and does not use `--workers`.
+
+```bash
+evmtool --json state-test < filenames.txt
+```
 
 ### `transition`, `t8n`, `t8n-server`
 
