@@ -640,8 +640,7 @@ Other regular expression metacharacters, such as `[` and `(`, are not escaped.
 Quote an expression that contains `*` or `?` so the shell does not expand it.
 For example, `--test-name='*ccess?ist'`.
 The expression is compiled before any fixture is read.
-An invalid pattern exits with code 1.
-A pattern that selects no test also exits with code 1.
+An invalid pattern, or a pattern that selects no test, exits with code 1.
 
 #### `json-array`
 
@@ -660,7 +659,7 @@ A pattern that selects no test also exits with code 1.
 Prints results as one JSON array and prints nothing else.
 Each element has `name`, `pass`, `fork`, `stateRoot`, and `error`.
 `error` is an empty string when the test passes.
-The process still exits with code 1 when any test fails or when no test runs.
+The process exits with code 1 when a test fails or when no test runs.
 
 ```json
 [
@@ -700,7 +699,7 @@ With `--json`, that summary line is printed only when `--summary-only` is also s
 Pass one or more state test files or directories.
 A directory is expanded recursively to its `.json` files, in sorted order.
 Files under a `.meta` directory are skipped.
-Those files run in parallel when [`--workers`](#workers) is greater than 1 and more
+The collected files run in parallel when [`--workers`](#workers) is greater than 1 and more
 than one file is collected.
 A single file runs on one thread.
 
