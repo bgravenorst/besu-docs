@@ -572,7 +572,8 @@ Allows the [Ethereum state tests](https://github.com/ethereum/execution-spec-tes
 to be evaluated.
 Run `evmtool state-test --help` for the full list of supported options.
 Notable options are [`--json`](#json-trace), [`--nomemory`](#nomemory-tracenomemory),
-[`--workers`](#workers), [`--test-name`](#test-name), [`--json-array`](#json-array), and
+[`--workers`](#workers), [`--test-name`](#test-name),
+[`--test-name-regex`](#test-name-regex), [`--json-array`](#json-array), and
 [`--summary-only`](#summary-only).
 
 Set `--json` for EVM Lab Fuzzing.
@@ -631,15 +632,43 @@ Parallelism applies only when the run collects more than one fixture file.
 
 </Tabs>
 
-Limits execution to tests selected by this expression.
-An expression with no `*` or `?` is a case-insensitive substring of the test name.
-An expression that contains `*` or `?` matches the whole test name.
-In that form, `*` matches any sequence of characters, `?` matches any one character,
-and `.` is literal.
-Other regular expression metacharacters, such as `[` and `(`, are not escaped.
-Quote an expression that contains `*` or `?` so the shell does not expand it.
+Limits execution to tests where the argument matches a case-insensitive substring of the
+test name.
+The special characters `*` and `?` can be used as wildcards to match multiple or single
+characters.
+An argument with a wildcard must match the whole test name, so add a leading or trailing `*`
+to match part of it.
+Quote an argument that contains `*` or `?` so the shell does not expand it.
 For example, `--test-name='*ccess?ist'`.
-The expression is compiled before any fixture is read.
+An invalid pattern, or a pattern that selects no test, exits with code 1.
+
+#### `test-name-regex`
+
+<Tabs>
+
+<TabItem value="Syntax" label="Syntax" default>
+
+```bash
+--test-name-regex=<regex>
+```
+
+</TabItem>
+
+<TabItem value="Example" label="Example">
+
+```bash
+--test-name-regex='.*(7928|8282).*'
+```
+
+</TabItem>
+
+</Tabs>
+
+Limits execution to tests whose name matches this regular expression, taken exactly as written.
+The match is case-sensitive and starts at the beginning of the test name, as a
+[hive](https://github.com/ethereum/hive) `--sim.limit` filter does, so you can pass a published
+hive filter unchanged.
+This option can't be used with [`--test-name`](#test-name).
 An invalid pattern, or a pattern that selects no test, exits with code 1.
 
 #### `json-array`
