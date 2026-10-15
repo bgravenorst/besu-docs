@@ -590,7 +590,7 @@ The command exits with code 1 when any test fails or when no test runs.
 <TabItem value="Syntax" label="Syntax" default>
 
 ```bash
---workers=<integer>
+evmtool state-test --workers=<integer>
 ```
 
 </TabItem>
@@ -598,7 +598,7 @@ The command exits with code 1 when any test fails or when no test runs.
 <TabItem value="Example" label="Example">
 
 ```bash
---workers=4
+evmtool state-test --workers=4
 ```
 
 </TabItem>
@@ -617,7 +617,7 @@ Parallelism applies only when the run collects more than one fixture file.
 <TabItem value="Syntax" label="Syntax" default>
 
 ```bash
---test-name=<string>
+evmtool state-test --test-name=<string>
 ```
 
 </TabItem>
@@ -625,7 +625,7 @@ Parallelism applies only when the run collects more than one fixture file.
 <TabItem value="Example" label="Example">
 
 ```bash
---test-name=accessList
+evmtool state-test --test-name=accessList
 ```
 
 </TabItem>
@@ -649,7 +649,7 @@ An invalid pattern, or a pattern that selects no test, exits with code 1.
 <TabItem value="Syntax" label="Syntax" default>
 
 ```bash
---test-name-regex=<regex>
+evmtool state-test --test-name-regex=<regex>
 ```
 
 </TabItem>
@@ -657,7 +657,7 @@ An invalid pattern, or a pattern that selects no test, exits with code 1.
 <TabItem value="Example" label="Example">
 
 ```bash
---test-name-regex='.*(7928|8282).*'
+evmtool state-test --test-name-regex='.*(7928|8282).*'
 ```
 
 </TabItem>
@@ -678,7 +678,7 @@ An invalid pattern, or a pattern that selects no test, exits with code 1.
 <TabItem value="Syntax" label="Syntax" default>
 
 ```bash
---json-array
+evmtool state-test --json-array
 ```
 
 </TabItem>
@@ -709,7 +709,7 @@ The process exits with code 1 when a test fails or when no test runs.
 <TabItem value="Syntax" label="Syntax" default>
 
 ```bash
---summary-only
+evmtool state-test --summary-only
 ```
 
 </TabItem>
@@ -778,7 +778,7 @@ evmtool --json state-test stdin < stExample/add11.json
 
 With no path argument, each line of standard input is the path of one state test
 file.
-This path runs one file at a time and does not use `--workers`.
+This path runs one file at a time and does not use `--workers`:
 
 ```bash
 evmtool --json state-test < filenames.txt
