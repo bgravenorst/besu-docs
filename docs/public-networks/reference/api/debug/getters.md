@@ -681,10 +681,12 @@ to re-execute the block without the full state.
     It does not include that block's header.
 
 :::note
-Returns `null` when the block does not exist.
-Returns a JSON-RPC error (`Block not found`) for the genesis block (`earliest` or block
+This method returns:
+
+- `null` when the block does not exist.
+- A JSON-RPC error (`Block not found`) for the genesis block (`earliest` or block
 `0`), which has no parent state to re-execute against.
-Returns a JSON-RPC error (`Internal error`) when your node is not using
+- A JSON-RPC error (`Internal error`) when your node is not using
 [Bonsai Tries](../../../concepts/data-storage-formats.md#bonsai-tries), the block's trie
 log has been pruned, or re-execution fails.
 See [Reduce storage for Bonsai Tries](../../../how-to/bonsai-limit-trie-logs.md) for how
