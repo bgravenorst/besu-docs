@@ -519,9 +519,13 @@ the requested blocks must be within the number of
 
 - `traceFilterOptions`: _object_ - Trace filter options object.
 
-- `fromBLock`: _String | Tag_ - Trace starts at this block.
+- `fromBlock`: _String | Tag_ - (Optional) Trace starts at this block.
 
-- `toBlock`: _String | Tag_ - Trace stops at this block.
+- `toBlock`: _String | Tag_ - (Optional) Trace stops at this block.
+
+- `blockHash`: _data, 32 bytes_ - (Optional) Hash of the block to trace.
+  If you specify `blockHash`, you cannot specify `fromBlock` or `toBlock`.
+  A `null` `blockHash` is ignored.
 
 - `fromAddress`: _string_ - Include only traces sent from this address.
 
@@ -632,6 +636,52 @@ curl -X POST http://127.0.0.1:8545/ \
       "transactionHash": "0x47f4d445ea1812cb1ddd3464ab23d2bfc6ed408a8a9db1c497f94e8e06e85286",
       "transactionPosition": 0,
       "type": "call"
+    }
+  ],
+  "id": 415
+}
+```
+
+</TabItem>
+</Tabs>
+
+To trace one block by hash, set `blockHash` and omit `fromBlock` and `toBlock`.
+
+<Tabs>
+
+<TabItem value="curl HTTP request" label="curl HTTP request" default>
+
+```bash
+curl -X POST http://127.0.0.1:8545/ \
+  -H "Content-Type: application/json" \
+  --data '{
+    "jsonrpc": "2.0",
+    "method": "trace_filter",
+    "params": [
+      {
+        "blockHash": "0xcd5d9c7acdcbd3fb4b24a39e05a38e32235751bb0c9e4f1aa16dc598a2c2a9e4",
+        "fromAddress": [
+          "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73"
+        ]
+      }
+    ],
+    "id": 415
+  }'
+```
+
+</TabItem>
+<TabItem value="wscat WS request" label="wscat WS request">
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "trace_filter",
+  "params": [
+    {
+      "blockHash": "0xcd5d9c7acdcbd3fb4b24a39e05a38e32235751bb0c9e4f1aa16dc598a2c2a9e4",
+      "fromAddress": [
+        "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73"
+      ]
     }
   ],
   "id": 415
