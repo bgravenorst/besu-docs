@@ -785,8 +785,8 @@ evmtool --json state-test < filenames.txt
 
 ### `block-test`
 
-Allows the
-[Ethereum blockchain tests](https://github.com/ethereum/execution-spec-tests/tree/main/tests/static/blockchain_tests)
+Allows the Ethereum blockchain tests in the
+[execution spec releases](https://github.com/ethereum/execution-specs/releases)
 to be evaluated.
 Run `evmtool block-test --help` for the full list of supported options.
 Notable options are [`--json`](#json-trace), [`--nomemory`](#nomemory-tracenomemory),
@@ -927,7 +927,7 @@ A single file runs on one thread.
 
 <TabItem value="Docker example" label="Docker example" default>
 ```bash
-docker run --rm -v ${PWD}:/opt/referencetests hyperledger/besu-evmtool:develop --json block-test /opt/referencetests/BlockchainTests/ValidBlocks/bcExample/add11.json
+docker run --rm -v ${PWD}:/opt/referencetests hyperledger/besu-evmtool:develop --json block-test /opt/referencetests/BlockchainTests/ValidBlocks/bcExample/shanghaiExample.json
 ```
 
 </TabItem>
@@ -936,7 +936,7 @@ docker run --rm -v ${PWD}:/opt/referencetests hyperledger/besu-evmtool:develop -
 
 
 ```bash
-evmtool --json block-test bcExample/add11.json
+evmtool --json block-test bcExample/shanghaiExample.json
 ```
 
 </TabItem>
@@ -952,7 +952,7 @@ Pass the path `stdin` to read one blockchain test JSON object from standard inpu
 <TabItem value="Docker example" label="Docker example" default>
 
 ```bash
-docker run --rm -i hyperledger/besu-evmtool:develop --json block-test stdin < bcExample/add11.json
+docker run --rm -i hyperledger/besu-evmtool:develop --json block-test stdin < bcExample/shanghaiExample.json
 ```
 
 </TabItem>
@@ -960,7 +960,7 @@ docker run --rm -i hyperledger/besu-evmtool:develop --json block-test stdin < bc
 <TabItem value="CLI example" label="CLI example">
 
 ```bash
-evmtool --json block-test stdin < bcExample/add11.json
+evmtool --json block-test stdin < bcExample/shanghaiExample.json
 ```
 
 </TabItem>
@@ -977,8 +977,8 @@ evmtool --json block-test < filenames.txt
 
 ### `engine-test`
 
-Allows the
-[Ethereum engine tests](https://github.com/ethereum/execution-spec-tests/tree/main/tests/static/blockchain_tests_engine)
+Allows the Ethereum engine tests in the
+[execution spec releases](https://github.com/ethereum/execution-specs/releases)
 to be evaluated through the [Engine API](engine-api.md).
 Run `evmtool engine-test --help` for the full list of supported options.
 Notable options are [`--json`](#json-trace), [`--nomemory`](#nomemory-tracenomemory),
@@ -1083,7 +1083,7 @@ Pass the path `stdin` to read one engine test JSON object from standard input.
 <TabItem value="Docker example" label="Docker example" default>
 
 ```bash
-docker run --rm -i hyperledger/besu-evmtool:develop engine-test stdin < add11.json
+docker run --rm -i hyperledger/besu-evmtool:develop engine-test stdin < <fixture>.json
 ```
 
 </TabItem>
@@ -1091,7 +1091,7 @@ docker run --rm -i hyperledger/besu-evmtool:develop engine-test stdin < add11.js
 <TabItem value="CLI example" label="CLI example">
 
 ```bash
-evmtool engine-test stdin < add11.json
+evmtool engine-test stdin < <fixture>.json
 ```
 
 </TabItem>
