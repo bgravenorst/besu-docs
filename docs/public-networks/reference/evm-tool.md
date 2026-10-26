@@ -1083,7 +1083,7 @@ Pass the path `stdin` to read one engine test JSON object from standard input.
 <TabItem value="Docker example" label="Docker example" default>
 
 ```bash
-docker run --rm -i hyperledger/besu-evmtool:develop engine-test stdin < <fixture>.json
+docker run --rm -i hyperledger/besu-evmtool:develop engine-test stdin < blockchain_tests_engine/for_shanghai/shanghai/eip4895_withdrawals/withdrawals/zero_amount.json
 ```
 
 </TabItem>
@@ -1091,7 +1091,7 @@ docker run --rm -i hyperledger/besu-evmtool:develop engine-test stdin < <fixture
 <TabItem value="CLI example" label="CLI example">
 
 ```bash
-evmtool engine-test stdin < <fixture>.json
+evmtool engine-test stdin < blockchain_tests_engine/for_shanghai/shanghai/eip4895_withdrawals/withdrawals/zero_amount.json
 ```
 
 </TabItem>
